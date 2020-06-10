@@ -2,10 +2,15 @@ package com.lucasrodrigues.api_restful_mongo.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "user") //para dizer que é uma colecao do mongodb
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private String id;
 	private String name;
 	private String email;
