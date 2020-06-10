@@ -39,13 +39,9 @@ public class UserResource {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-		try {
 			User user = service.findById(id);
 			UserDTO userDTO = new UserDTO(user);
 			return ResponseEntity.ok().body(userDTO);
-		} catch (ObjectNotFoundException e) {
-			throw new ObjectNotFoundException(e.getMessage());
-		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -58,5 +54,10 @@ public class UserResource {
 																														// uri
 		return ResponseEntity.created(uri).build();
 	}
-
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id) {
+			User user = service.findById(id);
+			service.delete(user.getId());
+			return ResponseEntity.noContent().build();
+	}
 }
