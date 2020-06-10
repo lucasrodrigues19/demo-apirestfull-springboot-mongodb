@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lucasrodrigues.api_restful_mongo.domain.User;
+import com.lucasrodrigues.api_restful_mongo.dto.UserDTO;
 import com.lucasrodrigues.api_restful_mongo.repository.UserRepository;
 
 @Service
@@ -28,4 +29,10 @@ public class UserService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	public User fromDTO(UserDTO obj) {
+		return new User(obj.getId(),obj.getName(),obj.getEmail());
+	}
 }
