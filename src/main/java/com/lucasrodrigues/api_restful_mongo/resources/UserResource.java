@@ -39,25 +39,34 @@ public class UserResource {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-			User user = service.findById(id);
-			UserDTO userDTO = new UserDTO(user);
-			return ResponseEntity.ok().body(userDTO);
+		User user = service.findById(id);
+		UserDTO userDTO = new UserDTO(user);
+		return ResponseEntity.ok().body(userDTO);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody UserDTO UserDTO) {
+	public ResponseEntity<Void> insert(@RequestBody UserDTO userDTO) {
 
-		User user = service.fromDTO(UserDTO);
+		User user = service.fromDTO(userDTO);
 		user = service.insert(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();// instancia
 																														// a
 																														// uri
 		return ResponseEntity.created(uri).build();
 	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id) {
-			User user = service.findById(id);
-			service.delete(user.getId());
-			return ResponseEntity.noContent().build();
+		User user = service.findById(id);
+		service.delete(user.getId());
+		return ResponseEntity.noContent().build();
 	}
+
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody UserDTO userDTO) {
+		User user = service.fromDTO(userDTO);
+		service.update(user);
+		return ResponseEntity.noContent().build();
+	}
+
 }
