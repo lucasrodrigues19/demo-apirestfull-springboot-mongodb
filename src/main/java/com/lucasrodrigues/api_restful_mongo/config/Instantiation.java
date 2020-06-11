@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.lucasrodrigues.api_restful_mongo.domain.Post;
 import com.lucasrodrigues.api_restful_mongo.domain.User;
+import com.lucasrodrigues.api_restful_mongo.dto.AuthorDTO;
 import com.lucasrodrigues.api_restful_mongo.repository.PostRepository;
 import com.lucasrodrigues.api_restful_mongo.repository.UserRepository;
 
@@ -38,8 +39,8 @@ private PostRepository postRepo;
 		
 		
 		postRepo.deleteAll();
-		Post p1 = new Post(null,sdf.parse("21/03/2018"),"Partiu viagem","Vou viajar para São Paulo. Abraços!",maria);
-		Post p2 = new Post(null,sdf.parse("23/03/2018"),"Bom dia","Acordei feliz hoje!",maria);
+		Post p1 = new Post(null,sdf.parse("21/03/2018"),"Partiu viagem","Vou viajar para São Paulo. Abraços!",new AuthorDTO(maria));
+		Post p2 = new Post(null,sdf.parse("23/03/2018"),"Bom dia","Acordei feliz hoje!",new AuthorDTO(maria));
 		postRepo.saveAll(Arrays.asList(p1,p2));
 	}
 
