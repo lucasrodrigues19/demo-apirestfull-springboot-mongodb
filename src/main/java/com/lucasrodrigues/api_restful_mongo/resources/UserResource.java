@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lucasrodrigues.api_restful_mongo.domain.Post;
 import com.lucasrodrigues.api_restful_mongo.domain.User;
 import com.lucasrodrigues.api_restful_mongo.dto.UserDTO;
-import com.lucasrodrigues.api_restful_mongo.services.ObjectNotFoundException;
 import com.lucasrodrigues.api_restful_mongo.services.UserService;
 
 @RestController
@@ -67,6 +67,11 @@ public class UserResource {
 		User user = service.fromDTO(userDTO);
 		service.update(user);
 		return ResponseEntity.noContent().build();
+	}
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User user = service.findById(id);
+		return ResponseEntity.ok().body(user.getPosts()); //isso funciona por que os poss serao acessados so quando solicitados
 	}
 
 }
